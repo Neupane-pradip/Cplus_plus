@@ -1,0 +1,6 @@
+.gitignore
+*.pro.user
+*build*
+templates/*
+examples/*user
+
