@@ -16,7 +16,7 @@ int main()
     //change given input temperaturre from celsius to fahrenheit
     fahrenheit=(1.8*temperature)+32;
 
-    cout<<temperature<<" degrees Fahrenheit is " << fahrenheit<<" degrees Celsius"
+    cout<<temperature<<" degrees Celsius is " << fahrenheit<<" degrees Fahrenheit "
        << endl;
 
     //change given temperature from fahrenhit to celsius
