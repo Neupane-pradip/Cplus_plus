@@ -28,18 +28,18 @@ int main() {
     // Check if the total number of balls is positive
     if (totalBalls <= 0) {
         std::cout << "The number of balls must be a positive number." << std::endl;
-        return 1; // Terminate the program
+        return EXIT_FAILURE; // Terminate the program
     }
 
     // Check if the number of drawn balls is positive and within the valid range
     if (drawnBalls <= 0 || drawnBalls > totalBalls) {
-        std::cout << "The number of balls must be a positive number, and the maximum number of drawn balls is the total amount of balls." << std::endl;
-        return 1; // Terminate the program
+        std::cout << "The maximum number of drawn balls is the total amount of balls." << std::endl;
+        return EXIT_FAILURE; // Terminate the program
     }
 
     // Calculate the probability of winning the jackpot
     unsigned long int combinations = calculateCombinations(totalBalls, drawnBalls);
-    std::cout << "The probability of guessing all " << drawnBalls << " balls correctly is1/" << combinations << std::endl;
+    std::cout << "The probability of guessing all " << drawnBalls << " balls correctly is 1/" << combinations << std::endl;
 
-    return 0; // Program executed successfully
+    return EXIT_SUCCESS; // Program executed successfully
 }
