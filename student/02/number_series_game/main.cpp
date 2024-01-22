@@ -8,22 +8,40 @@
 
 
 #include <iostream>
-using namespace std;
 
+using namespace std;
 
 int main()
 {
-    std::cout << "How many numbers would you like to have? ";
+    int n,i=1;
+    cout << "How many numbers would you like to have? ";
+    cin >> n;
 
-    // Write your code here
-    int n;
-    cin>>n;
-
-    for(int i=1; i<=n;++i)
+    for (i=1;i<=n;i=i+1)
     {
-        cout<<i<<endl;
+        if( i%21==0)
+        {
+            cout<<"zip boing"<<endl;
+
+        }
+        else if( i%7 ==0)
+        {
+            cout<<"boing"<<endl;
+
+        }
+        else if(i%3==0)
+        {
+            cout<<"zip"<<endl;
+
+        }
+
+        else
+        {
+            cout <<i<<"\n";
+        }
     }
 
 
     return 0;
 }
+
