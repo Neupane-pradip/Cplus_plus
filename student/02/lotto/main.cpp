@@ -28,13 +28,13 @@ int main() {
     // Check if the total number of balls is positive
     if (totalBalls <= 0) {
         std::cout << "The number of balls must be a positive number." << std::endl;
-        return EXIT_FAILURE; // Terminate the program
+        return EXIT_SUCCESS; // Terminate the program
     }
 
     // Check if the number of drawn balls is positive and within the valid range
     if (drawnBalls <= 0 || drawnBalls > totalBalls) {
         std::cout << "The maximum number of drawn balls is the total amount of balls." << std::endl;
-        return EXIT_FAILURE; // Terminate the program
+        return EXIT_SUCCESS; // Terminate the program
     }
 
     // Calculate the probability of winning the jackpot
