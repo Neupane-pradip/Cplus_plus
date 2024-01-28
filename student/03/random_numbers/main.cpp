@@ -13,6 +13,8 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
 
     cout<<"Enter a seed value: ";
     cin>>seed;
+    cout<<endl;
+
     default_random_engine gen(seed);
      uniform_int_distribution <int> m(lower, upper);
      do{
@@ -21,6 +23,7 @@ void produce_random_numbers(unsigned int lower, unsigned int upper)
     cout<<"Your drawn random number is " <<m(gen)<<endl;
     cout<<"Press q to quit or any other key to continue: ";
     cin>>key;
+    cout<<endl;
        }
      while(key!='q');
 }
