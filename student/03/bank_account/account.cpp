@@ -72,7 +72,7 @@ void Account::generate_iban()
     }
     else if(running_number_ > 99)
     {
-        std::cout << " Too many accounts" << std::endl;
+        std::cout << "Too many accounts" << std::endl;
     }
     suffix.append(std::to_string(running_number_));
 
