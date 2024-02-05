@@ -61,6 +61,8 @@ bool is_arithmetic_series(const std::vector<int>& ints) {
     }
 
     int common_difference = ints[1] - ints[0];
+
+
     for (std::vector<int>::size_type i = 2; i < ints.size(); ++i) {
         if (ints[i] - ints[i - 1] != common_difference) {
             return false;
@@ -76,15 +78,16 @@ bool is_geometric_series(const std::vector<int>& ints) {
         return true;
     }
 
-    int common_ratio = ints[1] / ints[0];
+    double common_ratio = static_cast<double>(ints[1]) / ints[0];
     for (std::vector<int>::size_type i = 2; i < ints.size(); ++i) {
-        if (ints[i] / ints[i - 1] != common_ratio) {
+        if (static_cast<double>(ints[i]) / ints[i - 1] != common_ratio) {
             return false;
         }
     }
 
     return true;
 }
+
 
 // Triples each integer in the vector.
 void triple_integers(std::vector<int>& ints) {
