@@ -28,26 +28,26 @@ void read_integers(std::vector< int >& ints, int count)
 
 // TODO: Implement your solution here
 
-//Return true if all integers int vector are same.
-
-bool same_values(const std::vector<int>& ints){
-    if(ints.size() <= 1){
+// Returns true if all integers in the vector are the same.
+bool same_values(const std::vector<int>& ints) {
+    if (ints.size() <= 1) {
         return true;
-
     }
-    int first_value =ints[0];
-    for(int i =1; i<ints.size(); ++i){
-        if(ints[i] !=first_value){
+
+    int first_value = ints[0];
+    for (std::vector<int>::size_type i = 1; i < ints.size(); ++i) {
+        if (ints[i] != first_value) {
             return false;
         }
     }
+
     return true;
 }
 
 // Returns true if the integers are in a non-strict ascending order.
-bool is_ordered_non_strict_ascending(const std::vector<int>& ints){
-    for(int i=1; i<ints.size(); ++i){
-        if(ints[i-1]>ints[i]){
+bool is_ordered_non_strict_ascending(const std::vector<int>& ints) {
+    for (std::vector<int>::size_type i = 1; i < ints.size(); ++i) {
+        if (ints[i - 1] > ints[i]) {
             return false;
         }
     }
@@ -55,14 +55,14 @@ bool is_ordered_non_strict_ascending(const std::vector<int>& ints){
 }
 
 // Returns true if the integers form an arithmetic series.
-bool is_arithmetic_series(const std::vector <int>& ints){
-    if(ints.size() <=1){
+bool is_arithmetic_series(const std::vector<int>& ints) {
+    if (ints.size() <= 1) {
         return true;
     }
 
-    int common_difference = ints[1]-ints[0];
-    for( int i=2; i < ints.size(); i++){
-        if(ints[i]-ints[i-1] !=common_difference){
+    int common_difference = ints[1] - ints[0];
+    for (std::vector<int>::size_type i = 2; i < ints.size(); ++i) {
+        if (ints[i] - ints[i - 1] != common_difference) {
             return false;
         }
     }
@@ -77,7 +77,7 @@ bool is_geometric_series(const std::vector<int>& ints) {
     }
 
     int common_ratio = ints[1] / ints[0];
-    for (int i = 2; i < ints.size(); ++i) {
+    for (std::vector<int>::size_type i = 2; i < ints.size(); ++i) {
         if (ints[i] / ints[i - 1] != common_ratio) {
             return false;
         }
