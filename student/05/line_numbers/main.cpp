@@ -27,7 +27,7 @@ int main() {
     std::string line;
     int line_number = 1;
     while (std::getline(input_file, line)) {
-        std::cout << line_number << " " << line << std::endl;
+
         output_file << line_number << " " << line << std::endl;
         line_number++;
     }
