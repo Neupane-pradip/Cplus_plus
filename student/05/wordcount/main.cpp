@@ -61,7 +61,7 @@ void print_out_data_structure(DATA const &rows_data)
         std::cout <<word << " " << line_number.size() <<": ";
         //print oout the lines
         for (std::set<int>::iterator lines_iter = line_number.begin();
-                                                  lines_iter != line_number.end(); lines_iter)
+                                                  lines_iter != line_number.end(); lines_iter++)
         {
 
 
