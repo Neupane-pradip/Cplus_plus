@@ -17,18 +17,19 @@ int main() {
 
     std::map<std::string, int> scores;
 
-    std::string name;
-    int points;
-    while (file >> name >> points) {
-        scores[name] += points;
-    }
+       std::string line;
+       while (std::getline(file, line)) {
+           std::string name = line.substr(0, line.find(":"));
+           int points = std::stoi(line.substr(line.find(":") + 1));
+           scores[name] += points;
+       }
 
-    file.close();
+       file.close();
 
-    std::cout << "Final scores:" << std::endl;
-    for (const auto& pair : scores) {
-        std::cout << pair.first << ": " << pair.second << std::endl;
-    }
+       std::cout << "Final scores:" << std::endl;
+       for (const auto& pair : scores) {
+           std::cout << pair.first << ": " << pair.second << std::endl;
+       }
 
     return EXIT_SUCCESS;
 }
