@@ -9,7 +9,7 @@
 bool is_palindrome_recursive(std::string s, int start, int end) {
     // Base case: if the start index crosses the end index, it means we have checked all characters
     // and the string is a palindrome
-    if (start == end) {
+    if (start >= end) {
         return true;
     }
 
@@ -46,3 +46,4 @@ int main()
     }
 }
 #endif
+
