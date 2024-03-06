@@ -265,8 +265,17 @@ int main() {
             }
 
             string location = commandParams[1];
-            // Assuming the theme is always the third parameter
-            string theme = commandParams[2];
+            string theme;
+
+            //combining all theme parameter into a single string
+            // vaariable
+            for (size_t i = 2; i < commandParams.size(); ++i) {
+                    theme += commandParams[i];
+                    // Add space between words if not the last word
+                    if (i != commandParams.size() - 1) {
+                        theme += " ";
+                    }
+                }
 
             // Remove quotes if present
             if (theme.front() == '\"' && theme.back() == '\"') {
