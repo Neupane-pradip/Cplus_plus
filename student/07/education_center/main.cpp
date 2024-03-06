@@ -22,6 +22,8 @@
 #include <sstream>
 #include <vector>
 #include <map>
+#include <set>
+#include <algorithm>
 
 using namespace std;
 
@@ -49,6 +51,7 @@ vector<string> splitString(const string& str, char delimiter) {
     }
     return result;
 }
+
 
 
 // Function to read course data from a file
@@ -96,4 +99,50 @@ CourseInfo readFile(const string& fileName) {
 
     inputFile.close();
     return courseData;
+}
+
+
+
+
+int main() {
+    string inputFileName;
+    cout << "Input file: ";
+    getline(cin, inputFileName);
+
+    CourseInfo courseData = readFile(inputFileName);
+
+    while (true) {
+        cout << "> ";
+        string command;
+        getline(cin, command);
+        vector<string> commandParams = splitString(command, ' ');
+
+        if (commandParams[0] == "quit") {
+            break;
+        }
+        else if (commandParams[0] == "locations") {
+
+                }
+                else if (commandParams[0] == "themes_in_location") {
+
+                }
+                else if (commandParams[0] == "courses") {
+
+                }
+                else if (commandParams[0] == "courses_in_theme") {
+
+                }
+                else if (commandParams[0] == "favorite_theme") {
+
+                }
+                else if (commandParams[0] == "available") {
+
+                }
+                else {
+                    cout << "Error: Unknown command: " << commandParams[0] << endl;
+                }
+
+    }
+
+    return 0;
 }
