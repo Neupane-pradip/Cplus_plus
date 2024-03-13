@@ -8,7 +8,7 @@ using namespace std;
 Queue::Queue(unsigned int cycle)
 {
     cycle_ = cycle;
-    is_green_ = false;
+
 }
 
 // Destructor for the Queue class, deallocates memory for all vehicles in the queue
@@ -74,7 +74,7 @@ void Queue::switch_light()
     }
     else{
         is_green_ = false;
-        displayQueue();
+        print();
     }
 }
 
@@ -104,6 +104,11 @@ void Queue::print() const
         cout << "waiting in traffic lights" << endl;
     }
 }
+
+
+
+
+
 
 // Displays the vehicles in the queue
 void Queue::displayQueue()
