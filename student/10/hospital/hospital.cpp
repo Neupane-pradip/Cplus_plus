@@ -186,12 +186,54 @@ void Hospital::leave(Params params)
 
 void Hospital::assign_staff(Params params)
 {
+    // Assign a staff member to a patient
+        std::string staff_id = params.at(0);
+        std::string patient_id = params.at(1);
 
+        // Check if the staff member exists
+        if (staff_.find(staff_id) == staff_.end()) {
+            std::cout << CANT_FIND << staff_id << std::endl;
+            return;
+        }
+
+        // Check if the patient exists
+        if (current_patients_.find(patient_id) == current_patients_.end()) {
+            std::cout << CANT_FIND << patient_id << std::endl;
+            return;
+        }
+
+        // Add the staff member to the patient's care period
+        for (auto care_period : care_periods[patient_id]) {
+            if (!care_period->is_closed()) {
+                care_period->add_staff(staff_id);
+                break;
+            }
+        }
+
+        // Print confirmation message
+        std::cout << STAFF_ASSIGNED << patient_id << std::endl;
 }
 
 void Hospital::print_patient_info(Params params)
 {
+    // Print information about a specific patient
+        std::string patient_id = params.at(0);
 
+        // Check if the patient exists
+        if (all_patients.find(patient_id) == all_patients.end()) {
+            std::cout << CANT_FIND << patient_id << std::endl;
+            return;
+        }
+
+        // Print the care periods for the patient
+        for (auto care_period : care_periods[patient_id]) {
+            care_period->print_care_period_for_patient();
+        }
+
+        // Print the medicines prescribed to the patient
+        std::cout << "* Medicines:";
+        Person* patient = all_patients[patient_id];
+        patient->print_medicines("  - ");
 }
 
 void Hospital::print_care_periods(Params params)
