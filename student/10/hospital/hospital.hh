@@ -197,7 +197,7 @@ private:
     std::map<std::string, Person*> all_patients;
 
     // Database storing care periods
-    std::vector<CarePeriod*> care_periods;
+    std::map<std::string, std::vector<std::shared_ptr<CarePeriod>>> care_periods;
 
     // Private method to compare starting dates of care periods
     static bool compare_CarePeriod_StartDates(std::shared_ptr<CarePeriod> period1,
