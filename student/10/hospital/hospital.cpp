@@ -122,40 +122,40 @@ void Hospital::remove_medicine(Params params)
 void Hospital::enter(Params params)
 {
     // Add a new patient to the hospital
-        std::string patient_id = params.at(0);
-        // Check if the patient already exists
-        if (current_patients_.find(patient_id) != current_patients_.end()) {
-            std::cout << ALREADY_EXISTS << patient_id << std::endl;
-            return;
-        }
+    std::string patient_id = params.at(0);
 
-        // Create a new patient object
-        Person* new_patient = nullptr;
-        // Check if the patient is already in the database
-        if (all_patients.find(patient_id) == all_patients.end()) {
-            new_patient = new Person(patient_id);
-            current_patients_.insert({patient_id, new_patient});
-        } else {
-            new_patient = all_patients.at(patient_id);
-            current_patients_.insert({patient_id, new_patient});
-        }
+    // Check if the patient already exists
+    if (current_patients_.find(patient_id) != current_patients_.end()) {
+        std::cout << ALREADY_EXISTS << patient_id << std::endl;
+        return;
+    }
 
-        // Add the patient to the all_patients map
+    // Create a new patient object or retrieve it from all_patients
+    Person* new_patient = nullptr;
+    auto all_patients_iter = all_patients.find(patient_id);
+    if (all_patients_iter == all_patients.end()) {
+        new_patient = new Person(patient_id);
         all_patients.insert({patient_id, new_patient});
+    } else {
+        new_patient = all_patients_iter->second;
+    }
 
-        // Print confirmation message
-        std::cout << PATIENT_ENTERED << std::endl;
+    // Add the patient to the current_patients map
+    current_patients_.insert({patient_id, new_patient});
 
-        // Create a new care period for the patient
-        std::shared_ptr<CarePeriod> new_period(new CarePeriod(utils::today, new_patient));
+    // Print confirmation message
+    std::cout << PATIENT_ENTERED << std::endl;
 
-        // Add the care period to the care_periods map
-        if (care_periods.find(patient_id) == care_periods.end()) {
-            care_periods.insert({patient_id, {}});
-            care_periods[patient_id].push_back(new_period);
-        } else {
-            care_periods[patient_id].push_back(new_period);
-        }
+    // Create a new care period for the patient
+    std::shared_ptr<CarePeriod> new_period(new CarePeriod(utils::today, new_patient));
+
+    // Add the care period to the care_periods map
+    auto care_periods_iter = care_periods.find(patient_id);
+    if (care_periods_iter == care_periods.end()) {
+        care_periods.insert({patient_id, {new_period}});
+    } else {
+        care_periods_iter->second.push_back(new_period);
+    }
 }
 
 void Hospital::leave(Params params)
