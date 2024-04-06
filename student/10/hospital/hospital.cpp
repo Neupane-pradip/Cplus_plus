@@ -3,6 +3,7 @@
 #include <iostream>
 #include <set>
 #include <memory>
+#include <algorithm>
 
 Hospital::Hospital()
 {
@@ -123,25 +124,27 @@ void Hospital::remove_medicine(Params params)
 void Hospital::enter(Params params)
 {
     std::string patient_id = params.at(0);
+
     // Check if the patient ID already exists in the database
     if (current_patients_.find(patient_id) != current_patients_.end()) {
         std::cout << ALREADY_EXISTS << patient_id << std::endl;
         return;
     }
 
-    // If the person has never entered the hospital, e.g. doesn't exists
-    // in left patients database, create a new Person object for them
+    // If the person has never entered the hospital, create a new Person object for them
     Person* new_patient = nullptr;
 
-    if (all_patients.find(patient_id) == all_patients.end()) {
+    // Check if the patient ID already exists in all_patients
+    auto it = all_patients.find(patient_id);
+    if (it == all_patients.end()) {
         new_patient = new Person(patient_id);
-        current_patients_.insert({patient_id, new_patient});
+        all_patients.insert({patient_id, new_patient});
     } else {
-        new_patient = all_patients.at(patient_id);
-        current_patients_.insert({patient_id, new_patient});
+        new_patient = it->second;
     }
 
-    all_patients.insert({patient_id, new_patient});
+    // Insert the new patient into current_patients_
+    current_patients_.insert({patient_id, new_patient});
 
     // Print the message of the command
     std::cout << PATIENT_ENTERED << std::endl;
@@ -150,12 +153,7 @@ void Hospital::enter(Params params)
     std::shared_ptr<CarePeriod> new_care_period(new CarePeriod(utils::today, new_patient));
 
     // Add the care period to the database
-    if (care_periods.find(patient_id) == care_periods.end()) {
-        care_periods.insert({patient_id, {}});
-        care_periods[patient_id].push_back(new_care_period);
-    } else {
-        care_periods[patient_id].push_back(new_care_period);
-    }
+    care_periods[patient_id].push_back(new_care_period);
 }
 
 
