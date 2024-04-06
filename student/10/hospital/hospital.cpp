@@ -238,12 +238,57 @@ void Hospital::print_patient_info(Params params)
 
 void Hospital::print_care_periods(Params params)
 {
+    // Print care periods for a specific staff member
+        std::string staff_id = params.at(0);
 
+        // Check if the staff member exists
+        if (staff_.find(staff_id) == staff_.end()) {
+            std::cout << CANT_FIND << staff_id << std::endl;
+            return;
+        }
+
+        // Store the care periods assigned to the staff member
+        std::vector<std::shared_ptr<CarePeriod>> care_periods_staff = {};
+
+        // Iterate through all care periods to find those assigned to the staff member
+        for (auto item : care_periods) {
+            for (auto care_period : item.second) {
+                if (care_period->check_staff(staff_id)) {
+                    care_periods_staff.push_back(care_period);
+                }
+            }
+        }
+
+        // Print the care periods for the staff member
+        if (care_periods_staff.size() == 0) {
+            std::cout << "None" << std::endl;
+        } else {
+            std::sort(care_periods_staff.begin(), care_periods_staff.end(),
+                      compare_CarePeriod_StartDates);
+            for (auto care_period : care_periods_staff) {
+                care_period->print_care_period_for_staff();
+            }
+        }
 }
 
 void Hospital::print_all_medicines(Params)
 {
+    // Print all medicines prescribed to patients
+        std::map<std::string, std::set<std::string>> medicines_map = get_Medicines_Info();
 
+        // Check if there are any medicines prescribed
+        if (medicines_map.empty()) {
+            std::cout << "None" << std::endl;
+            return;
+        }
+
+        // Print each medicine and the patients prescribed with it
+        for (auto iter : medicines_map) {
+            std::cout << iter.first << " prescribed for" << std::endl;
+            for (std::string patient_id : iter.second) {
+                std::cout << "* " << patient_id << std::endl;
+            }
+        }
 }
 
 void Hospital::print_all_patients(Params)
@@ -254,3 +299,4 @@ void Hospital::print_all_patients(Params)
 void Hospital::print_current_patients(Params)
 {
 
+}
