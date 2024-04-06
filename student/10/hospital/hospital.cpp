@@ -2,6 +2,7 @@
 #include "utils.hh"
 #include <iostream>
 #include <set>
+#include <memory>
 
 Hospital::Hospital()
 {
@@ -121,42 +122,42 @@ void Hospital::remove_medicine(Params params)
 
 void Hospital::enter(Params params)
 {
-    // Add a new patient to the hospital
     std::string patient_id = params.at(0);
-
-    // Check if the patient already exists
+    // Check if the patient ID already exists in the database
     if (current_patients_.find(patient_id) != current_patients_.end()) {
         std::cout << ALREADY_EXISTS << patient_id << std::endl;
         return;
     }
 
-    // Create a new patient object or retrieve it from all_patients
+    // If the person has never entered the hospital, e.g. doesn't exists
+    // in left patients database, create a new Person object for them
     Person* new_patient = nullptr;
-    auto all_patients_iter = all_patients.find(patient_id);
-    if (all_patients_iter == all_patients.end()) {
+
+    if (all_patients.find(patient_id) == all_patients.end()) {
         new_patient = new Person(patient_id);
-        all_patients.insert({patient_id, new_patient});
+        current_patients_.insert({patient_id, new_patient});
     } else {
-        new_patient = all_patients_iter->second;
+        new_patient = all_patients.at(patient_id);
+        current_patients_.insert({patient_id, new_patient});
     }
 
-    // Add the patient to the current_patients map
-    current_patients_.insert({patient_id, new_patient});
+    all_patients.insert({patient_id, new_patient});
 
-    // Print confirmation message
+    // Print the message of the command
     std::cout << PATIENT_ENTERED << std::endl;
 
     // Create a new care period for the patient
-    std::shared_ptr<CarePeriod> new_period(new CarePeriod(utils::today, new_patient));
+    std::shared_ptr<CarePeriod> new_care_period(new CarePeriod(utils::today, new_patient));
 
-    // Add the care period to the care_periods map
-    auto care_periods_iter = care_periods.find(patient_id);
-    if (care_periods_iter == care_periods.end()) {
-        care_periods.insert({patient_id, {new_period}});
+    // Add the care period to the database
+    if (care_periods.find(patient_id) == care_periods.end()) {
+        care_periods.insert({patient_id, {}});
+        care_periods[patient_id].push_back(new_care_period);
     } else {
-        care_periods_iter->second.push_back(new_period);
+        care_periods[patient_id].push_back(new_care_period);
     }
 }
+
 
 void Hospital::leave(Params params)
 {
