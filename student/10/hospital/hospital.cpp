@@ -3,6 +3,8 @@
 #include <iostream>
 #include <set>
 #include <memory>
+#include <algorithm>
+
 
 Hospital::Hospital()
 {
@@ -131,7 +133,7 @@ void Hospital::enter(Params params)
     }
 
     // If the person has never entered the hospital, create a new Person object for them
-    Person* new_patient = nullptr;
+     Person *new_patient = new Person(patient_id);
 
     // Check if the patient ID already exists in all_patients
     auto it = all_patients.find(patient_id);
@@ -154,6 +156,8 @@ void Hospital::enter(Params params)
     // Add the care period to the database
     care_periods[patient_id].push_back(new_care_period);
 }
+
+
 
 
 void Hospital::leave(Params params)
