@@ -293,10 +293,65 @@ void Hospital::print_all_medicines(Params)
 
 void Hospital::print_all_patients(Params)
 {
-
-}
+    // Print information about all patients
+        print_patients(all_patients);
+    }
 
 void Hospital::print_current_patients(Params)
-{
+    {
+        // Print information about current patients
+        print_patients(current_patients_);
+    }
 
+bool Hospital::compare_CarePeriod_StartDates(std::shared_ptr<CarePeriod> period1,
+                                                 std::shared_ptr<CarePeriod> period2)
+    {
+        // Compare care periods based on start dates
+        if (period1->start_date() == period2->start_date()) {
+            return period1->patient_id() > period2->patient_id();
+        }
+        return period1->start_date() < period2->start_date();
+}
+
+std::map<std::string, std::set<std::string>> Hospital::get_Medicines_Info() {
+    // Retrieve information about medicines prescribed to patients
+    // If there are no patients, return an empty map
+    if (all_patients.empty()) {
+        return {};
+    }
+
+    // Create a map to store the result
+    std::map<std::string, std::set<std::string>> result = {};
+
+    // Iterate through each patient to collect medicines information
+    std::vector<std::string> medicines;
+    for (auto patient_pair : all_patients) {
+        medicines = patient_pair.second->get_medicines();
+        for (std::string medicine : medicines) {
+            if (result.find(medicine) == result.end()) {
+                result.insert({medicine, {patient_pair.first}});
+            } else {
+                result[medicine].insert(patient_pair.first);
+            }
+        }
+    }
+
+    return result;
+}
+
+void Hospital::print_patients(std::map<std::string, Person *> datacenter) {
+    // Print information about patients
+    // If there are no patients, print "None"
+    if (datacenter.empty()) {
+        std::cout << "None" << std::endl;
+        return;
+    }
+
+    // Iterate through the database to print patient information
+    for (std::map<std::string, Person*>::iterator iter = datacenter.begin();
+         iter != datacenter.end(); ++iter) {
+        std::cout << iter->first << std::endl;
+        std::vector<std::string> param = {iter->first};
+        print_patient_info(param);
+    }
 }
