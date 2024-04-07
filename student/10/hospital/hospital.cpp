@@ -22,6 +22,13 @@ Hospital::~Hospital()
     }
 
     // Remember to deallocate patients also
+    for (std::map<std::string, Person*>::iterator
+             iter = all_patients.begin();
+             iter != all_patients.end();
+             ++iter)
+        {
+            delete iter->second;
+        }
 }
 
 void Hospital::set_date(Params params)
@@ -361,3 +368,4 @@ void Hospital::print_patients(std::map<std::string, Person *> datacenter) {
         print_patient_info(param);
     }
 }
+
