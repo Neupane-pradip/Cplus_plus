@@ -44,13 +44,13 @@ void MainWindow::on_countButton_clicked()
     QString display = QString::number(bmi);
     ui->resultLabel->setText(display);
     if(bmi<18.5){
-        ui->infoTextBrowser->setText("You are underweight.");
+        ui->infoTextBrowser->setText("Underweight");
     }
     else if(bmi>=18.5 && bmi<=25.0){
-        ui->infoTextBrowser->setText("Your weight is normal.");
+        ui->infoTextBrowser->setText("Normal range");
     }
     else{
-        ui->infoTextBrowser->setText("You are overweight.");
+        ui->infoTextBrowser->setText("Overweight");
     }
 
 }
