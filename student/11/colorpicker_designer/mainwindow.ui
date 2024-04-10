@@ -177,5 +177,53 @@
     </hint>
    </hints>
   </connection>
+  <connection>
+   <sender>spinBoxRed</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSliderRed</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>232</x>
+     <y>143</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>148</x>
+     <y>143</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBoxGreen</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSliderGreen</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>232</x>
+     <y>184</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>148</x>
+     <y>184</y>
+    </hint>
+   </hints>
+  </connection>
+  <connection>
+   <sender>spinBoxBlue</sender>
+   <signal>valueChanged(int)</signal>
+   <receiver>horizontalSliderBlue</receiver>
+   <slot>setValue(int)</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>232</x>
+     <y>225</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>148</x>
+     <y>225</y>
+    </hint>
+   </hints>
+  </connection>
  </connections>
 </ui>
