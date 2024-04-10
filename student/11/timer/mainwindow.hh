@@ -26,6 +26,7 @@ private slots:
     // Add your slots here
 
     void on_startButton_clicked();
+
     void runTheClock();
 
     void on_stopButton_clicked();

@@ -1,3 +1,4 @@
+
 #include "mainwindow.hh"
 #include "ui_mainwindow.h"
 
@@ -6,8 +7,8 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    ui->lcdNumber->setPalette(Qt::red);
-    ui->lcdNumber_2->setPalette(Qt::green);
+    ui->lcdNumberMin->setPalette(Qt::red);
+    ui->lcdNumberSec->setPalette(Qt::green);
     timer= new QTimer(this);
     connect(timer, SIGNAL(timeout()), this, SLOT(runTheClock()));
 
@@ -37,8 +38,8 @@ void MainWindow::runTheClock()
     }
     QString sec= QString::number(secs);
     QString min= QString::number(mins);
-    ui->lcdNumber_2->display(sec);
-    ui->lcdNumber->display(min);
+    ui->lcdNumberSec->display(sec);
+    ui->lcdNumberMin->display(min);
 }
 
 void MainWindow::on_stopButton_clicked()
@@ -54,6 +55,6 @@ void MainWindow::on_resetButton_clicked()
     mins=0;
     QString sec= QString::number(secs);
     QString min= QString::number(mins);
-    ui->lcdNumber_2->display(sec);
-    ui->lcdNumber->display(min);
+    ui->lcdNumberSec->display(sec);
+    ui->lcdNumberMin->display(min);
 }
